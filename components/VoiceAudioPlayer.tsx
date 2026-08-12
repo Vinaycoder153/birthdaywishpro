@@ -37,7 +37,7 @@ export default function VoiceMessage() {
       if (analyser) {
         const bufferLength = analyser.frequencyBinCount;
         dataArray = new Uint8Array(bufferLength);
-        analyser.getByteFrequencyData(dataArray);
+        analyser.getByteFrequencyData(dataArray as any);
       } else {
         // Fallback animated sine wave
         dataArray = new Uint8Array(BAR_COUNT);
