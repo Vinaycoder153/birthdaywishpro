@@ -32,8 +32,8 @@ const dancing = Dancing_Script({
 });
 
 export const metadata: Metadata = {
-  title: "A Birthday Written in the Stars — A Universe For You",
-  description: "A private cinematic birthday surprise universe created deeply in love.",
+  title: "Happy 20th Birthday, Sinchana ✨",
+  description: "A cinematic birthday surprise made with love for Sinchana's 20th birthday.",
 };
 
 export const viewport: Viewport = {

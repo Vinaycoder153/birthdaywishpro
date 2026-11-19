@@ -1,16 +1,52 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Heart, ChevronDown, Sparkles } from "lucide-react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { Heart, ChevronDown, Sparkles, Gift, Star } from "lucide-react";
 import { usePersonalization } from "@/context/PersonalizationContext";
 import { playTone } from "@/lib/audio";
 import confetti from "canvas-confetti";
+
+function getDaysUntilBirthday(dateString: string) {
+  const birthday = new Date(`${dateString}T00:00:00`);
+  const today = new Date();
+  birthday.setHours(0, 0, 0, 0);
+  today.setHours(0, 0, 0, 0);
+  return Math.max(0, Math.ceil((birthday.getTime() - today.getTime()) / 86400000));
+}
 
 export default function BirthdayHero() {
   const { data } = usePersonalization();
   const [step, setStep] = useState(0);
   const [heartsCount, setHeartsCount] = useState(0);
+  const daysUntil = getDaysUntilBirthday(data.birthdayDate);
+  const birthday = new Date(`${data.birthdayDate}T00:00:00`);
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const smoothX = useSpring(pointerX, { stiffness: 90, damping: 18 });
+  const smoothY = useSpring(pointerY, { stiffness: 90, damping: 18 });
+  const visualX = useTransform(smoothX, [-1, 1], [-18, 18]);
+  const visualY = useTransform(smoothY, [-1, 1], [-12, 12]);
+  const ringX = useTransform(smoothX, [-1, 1], [12, -12]);
+  const ringY = useTransform(smoothY, [-1, 1], [8, -8]);
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    pointerX.set(((event.clientX - rect.left) / rect.width - 0.5) * 2);
+    pointerY.set(((event.clientY - rect.top) / rect.height - 0.5) * 2);
+  };
+
+  const handlePointerLeave = () => {
+    pointerX.set(0);
+    pointerY.set(0);
+  };
+
+  const birthdayLabel = birthday.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 
   // Progressive text reveal sequence
   useEffect(() => {
@@ -43,38 +79,63 @@ export default function BirthdayHero() {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-16 overflow-hidden select-none">
+    <section
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-16 overflow-hidden select-none"
+    >
       {/* Background Glow Lights */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-magenta/10 rounded-full blur-[150px] pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] bg-rosegold/10 rounded-full blur-[140px] pointer-events-none" />
       </div>
 
-      {/* Pulsing Interactive Heart Icon */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-8 cursor-pointer z-10"
+        initial={{ opacity: 0, scale: 0.55, y: -30 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        className="birthday-visual mb-5 cursor-pointer z-10"
         onClick={handleHeartClick}
-        title="Tap to send love"
+        title="Tap to celebrate"
+        style={{ x: visualX, y: visualY }}
       >
         <motion.div
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-          className="relative w-20 h-20 rounded-full glass-panel flex items-center justify-center border border-rosegold/30 hover:border-magenta group transition-all shadow-glow"
+          className="birthday-orbit orbit-one"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+          style={{ x: ringX, y: ringY }}
         >
-          <Heart className="w-9 h-9 text-magenta fill-magenta drop-shadow-md group-hover:scale-110 transition-transform" />
-          {heartsCount > 0 && (
-            <motion.span
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="absolute -top-1 -right-1 bg-gradient-to-r from-magenta to-rosegold text-midnight font-bold text-[11px] w-6 h-6 rounded-full flex items-center justify-center shadow-glow"
-            >
-              +{heartsCount}
-            </motion.span>
-          )}
+          <span><Star className="w-4 h-4" /></span>
         </motion.div>
+        <motion.div
+          className="birthday-orbit orbit-two"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 23, repeat: Infinity, ease: "linear" }}
+        >
+          <span><Gift className="w-4 h-4" /></span>
+        </motion.div>
+
+        <div className="age-medallion">
+          <div className="age-medallion-glow" />
+          <motion.span
+            animate={{ rotateY: [0, 12, 0, -12, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            20
+          </motion.span>
+          <small>years of wonderful</small>
+        </div>
+
+        {heartsCount > 0 && (
+          <motion.span
+            key={heartsCount}
+            initial={{ scale: 0, y: 10 }}
+            animate={{ scale: 1, y: 0 }}
+            className="celebration-count"
+          >
+            +{heartsCount}
+          </motion.span>
+        )}
       </motion.div>
 
       {/* Main Birthday Greeting Title */}
@@ -90,8 +151,17 @@ export default function BirthdayHero() {
         </span>
 
         <h1 className="font-display text-5xl sm:text-7xl md:text-8xl text-gradient-gold leading-[1.05] tracking-tight font-extrabold drop-shadow-2xl">
-          Happy Birthday, {data.partnerName}
+          {data.heroGreeting}
         </h1>
+
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm font-body">
+          <span className="rounded-full border border-magenta/40 bg-magenta/10 px-4 py-2 text-stardust shadow-glow">
+            {daysUntil === 0 ? "Today is your day ✨" : `${daysUntil} days to go`}
+          </span>
+          <span className="rounded-full border border-rosegold/30 bg-rosegold/10 px-4 py-2 text-rosegold">
+            {birthdayLabel} · Turning 20
+          </span>
+        </div>
       </motion.div>
 
       {/* Progressive Text Reveal Sequence */}
@@ -119,7 +189,7 @@ export default function BirthdayHero() {
               transition={{ duration: 0.8 }}
               className="font-body text-stardust/80 text-base sm:text-lg leading-relaxed mb-4"
             >
-              It&apos;s the day the world became a little more beautiful.
+              It&apos;s the day one of my favorite people came into the world.
             </motion.p>
           )}
         </AnimatePresence>
@@ -133,7 +203,7 @@ export default function BirthdayHero() {
               transition={{ duration: 0.8 }}
               className="font-body text-rosegold/90 text-sm sm:text-base italic max-w-lg leading-relaxed"
             >
-              &ldquo;{data.partnerName}, this little universe exists because you mean more to me than words can ever explain.&rdquo;
+              &ldquo;{data.partnerName}, this little universe exists because being your best friend is one of my favorite parts of life.&rdquo;
             </motion.p>
           )}
         </AnimatePresence>

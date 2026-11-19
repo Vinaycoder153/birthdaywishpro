@@ -54,25 +54,25 @@ export interface PersonalizationData {
 const STORAGE_KEY = "birthday-universe-data-v1";
 
 export const DEFAULT_DATA: PersonalizationData = {
-  partnerName: "My Love",
-  yourName: "Your Person",
+  partnerName: "Sinchana",
+  yourName: "Your Best Friend",
   loverGender: "girl",
-  pin: "1204",
-  birthdayDate: "2026-08-12",
-  heroGreeting: "Happy Birthday, My Entire Universe",
-  heroSubtitle: "Today isn't just another date on the calendar. It's the day the world became a little brighter, softer, and infinitely more beautiful.",
+  pin: "2511",
+  birthdayDate: "2026-11-25",
+  heroGreeting: "Happy 20th Birthday, Sin",
+  heroSubtitle: "Six days until we celebrate the wonderful person, unforgettable laughs, and beautiful friendship that make life brighter.",
   letter:
-    "Happy Birthday, my love.\n\nI don't know if words will ever be enough to explain what you mean to me.\n\nBut if I could give you one thing today, it would be the ability to see yourself through my eyes.\n\nYou would see someone extraordinarily special.\nSomeone worth celebrating every single second.\nSomeone worth choosing.\n\nAgain.\nAnd again.\nAnd again.\n\nThank you for existing, for loving me, and for filling my life with a light I never knew I was missing.",
+    "Happy Birthday, Sin!\n\nTwenty looks wonderful on you already.\n\nThank you for being the kind of friend who turns ordinary days into stories worth remembering, quiet moments into comfort, and every laugh into a memory I want to keep forever.\n\nYou are kind, hilarious, strong, and completely one of a kind. I hope this new chapter brings you big dreams, brave beginnings, and all the happiness you deserve.\n\nHere is to more adventures, more inside jokes, and a lifetime of being best friends.\n\nAlways cheering for you,\nYour Best Friend",
   dateNightSurprise: {
-    title: "YOUR BIRTHDAY DATE NIGHT",
-    tagline: "A Private Celebration Reserved Just For You",
-    details: "One unforgettable date: your favorite cuisine, your favorite place, candlelight, and one person who is completely & hopelessly obsessed with you.",
-    venue: "Secret Candlelight Sanctuary — Tonight",
+    title: "YOUR BIRTHDAY ADVENTURE",
+    tagline: "A Celebration Reserved For The Birthday Girl",
+    details: "One unforgettable day: good food, ridiculous laughter, your favorite people, and a brand-new memory for our best-friend scrapbook.",
+    venue: "Sin's 20th Birthday Celebration — 25 November",
   },
-  scratchMessage: "SURPRISE! ❤️ Tonight, you're officially kidnapped for a private rooftop birthday date under the stars.",
-  scratchTitle: "A Private Secret Awaits",
-  finalMessage: "This isn't the end of our story. It's just another beautiful chapter. Happy Birthday, my love. Forever looks beautiful with you.",
-  songTitle: "Our Heartbeat Serenade",
+  scratchMessage: "SURPRISE! ✨ Your 20th birthday mission is officially unlocked: celebrate loudly, laugh until it hurts, and make one more unforgettable memory.",
+  scratchTitle: "A Birthday Secret Awaits",
+  finalMessage: "This isn't the end of our story. It's another beautiful chapter in the friendship I am so grateful for. Happy 20th birthday, Sin — the best is still ahead.",
+  songTitle: "Best-Friend Birthday Serenade",
   audioUrl: "/audio/voice-message.mp3",
   photos: [
     {
@@ -130,7 +130,7 @@ export const DEFAULT_DATA: PersonalizationData = {
       title: "The First Hello",
       date: "The Spark",
       description:
-        "The moment two strangers unknowingly started becoming something more.",
+        "The moment two people unknowingly started a friendship that would become one of life's best gifts.",
       iconName: "Sparkles",
     },
     {
@@ -138,23 +138,23 @@ export const DEFAULT_DATA: PersonalizationData = {
       title: "The First Conversation",
       date: "Endless Hours",
       description:
-        "One casual conversation that somehow turned into hours of shared laughter and secrets.",
+        "One casual conversation that somehow turned into hours of laughter, secrets, and the beginning of our favorite inside jokes.",
       iconName: "MessageCircle",
     },
     {
       id: "m3",
-      title: "The First Date",
+      title: "The First Adventure",
       date: "Unforgettable",
       description:
-        "Nervous smiles, spilled coffee, and the exact instant I knew you were going to change my life.",
+        "A simple day out that became proof that even the most ordinary plans are better when we are together.",
       iconName: "Coffee",
     },
     {
       id: "m4",
-      title: "Our First Adventure",
+      title: "Our Favorite Memories",
       date: "Lost Together",
       description:
-        "Somewhere between the journey and the destination, I realized how much I loved being beside you.",
+        "Somewhere between the journey and the destination, we collected the kind of memories that make friendship feel like home.",
       iconName: "Compass",
     },
     {
@@ -162,7 +162,7 @@ export const DEFAULT_DATA: PersonalizationData = {
       title: "Today — Your Birthday",
       date: "This Moment",
       description:
-        "Another birthday, another chapter written in the stars, and another reason to celebrate you.",
+        "Twenty candles, one incredible friend, and a whole new chapter waiting to be written in the stars.",
       iconName: "Heart",
     },
     {
@@ -170,7 +170,7 @@ export const DEFAULT_DATA: PersonalizationData = {
       title: "Tomorrow & Forever",
       date: "Our Future",
       description:
-        "Whatever comes next in this wild world, I hope I get to experience every second of it with you.",
+        "Whatever comes next in this wild world, I hope we keep showing up for every laugh, leap, and little victory together.",
       iconName: "Star",
     },
   ],
