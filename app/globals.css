@@ -20,33 +20,79 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
 }
 
 body {
-  background-color: #060105;
+  background-color: #080611;
   color: #ffe9ef;
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.premium-canvas {
+  background-color: #080611;
+  background-image:
+    radial-gradient(ellipse 75% 42% at 50% -8%, rgba(196, 115, 150, 0.17), transparent 68%),
+    radial-gradient(ellipse 42% 34% at 3% 43%, rgba(117, 80, 155, 0.11), transparent 74%),
+    radial-gradient(ellipse 45% 36% at 100% 69%, rgba(203, 156, 88, 0.08), transparent 72%),
+    linear-gradient(180deg, #0b0813 0%, #080611 52%, #0c0812 100%);
 }
 
 .glass-panel {
-  background: rgba(20, 7, 15, 0.55);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-  border: 1px solid rgba(243, 206, 122, 0.18);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.075), transparent 48%),
+    rgba(18, 12, 27, 0.68);
+  backdrop-filter: blur(24px) saturate(135%);
+  -webkit-backdrop-filter: blur(24px) saturate(135%);
+  border: 1px solid rgba(238, 214, 176, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 14px 36px rgba(0,0,0,.18);
 }
 
 .text-gradient-gold {
-  background: linear-gradient(90deg, #f3ce7a, #ffe9c7, #f3ce7a);
+  background: linear-gradient(100deg, #d8ad67 0%, #fff2cc 28%, #e8c987 52%, #fff7df 74%, #c99a55 100%);
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: premium-sheen 12s ease-in-out infinite alternate;
 }
 
 .text-gradient-rose {
-  background: linear-gradient(90deg, #ff2a5f, #ffb3c6, #ff2a5f);
+  background: linear-gradient(100deg, #d9759a 0%, #ffe1e7 36%, #ef9dbc 65%, #d9759a 100%);
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: premium-sheen 14s ease-in-out infinite alternate;
+}
+
+@keyframes premium-sheen {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+::selection {
+  color: #fffaf0;
+  background: rgba(187, 94, 132, 0.72);
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(255, 222, 169, 0.9);
+  outline-offset: 4px;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .gpu {
@@ -79,7 +125,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 60;
-  opacity: 0.035;
+  opacity: 0.025;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -272,6 +318,204 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.15),
     0 0 80px rgba(255, 75, 145, 0.22);
   transform-style: preserve-3d;
+}
+
+.birthday-collage-shell {
+  position: relative;
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  isolation: isolate;
+}
+
+.birthday-collage-glow {
+  position: absolute;
+  inset: 12% 13%;
+  z-index: -1;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 30% 45%, rgba(255, 58, 135, 0.27), transparent 55%),
+    radial-gradient(ellipse at 70% 55%, rgba(163, 111, 255, 0.25), transparent 55%);
+  filter: blur(40px);
+}
+
+.birthday-collage-stage {
+  position: relative;
+  width: 100%;
+  height: 650px;
+  perspective: 1300px;
+  transform-style: preserve-3d;
+}
+
+.birthday-collage-photo {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  padding: 7px 7px 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 240, 218, 0.84);
+  border-radius: 14px;
+  background: linear-gradient(145deg, #fff8ed, #e8d8c8);
+  box-shadow:
+    0 18px 34px rgba(0, 0, 0, 0.34),
+    0 0 20px rgba(255, 168, 205, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.birthday-collage-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #512044, #192048);
+}
+
+.collage-photo-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(125deg, transparent 30%, rgba(255,255,255,.26) 48%, transparent 65%);
+  transform: translateX(-120%);
+  transition: transform 0.9s ease;
+}
+
+.birthday-collage-photo:hover .collage-photo-shine {
+  transform: translateX(120%);
+}
+
+.birthday-collage-message {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  width: min(455px, 45%);
+  padding: 34px 32px;
+  text-align: center;
+  border: 1px solid rgba(255, 227, 187, 0.36);
+  border-radius: 30px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.12), transparent 55%),
+    rgba(21, 7, 31, 0.86);
+  box-shadow:
+    0 28px 65px rgba(0,0,0,.4),
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 0 50px rgba(255, 83, 151, .19);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  transform: translate(-50%, -50%);
+}
+
+.collage-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffcf91;
+  font: 700 10px var(--font-jakarta), sans-serif;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.collage-eyebrow svg {
+  color: #ff80b7;
+  filter: drop-shadow(0 0 8px rgba(255,128,183,.8));
+}
+
+.birthday-collage-message h2 {
+  margin: 15px 0 10px;
+  color: #fff3d4;
+  font: 800 clamp(28px, 4vw, 46px)/1.08 var(--font-display), serif;
+  text-shadow: 0 5px 25px rgba(255, 176, 199, 0.22);
+}
+
+.birthday-collage-message h2 span {
+  display: block;
+  color: #ff9fc6;
+  font-family: var(--font-script), cursive;
+  font-size: 1.04em;
+  font-weight: 700;
+}
+
+.birthday-collage-message p {
+  margin: 0 auto;
+  max-width: 330px;
+  color: rgba(255, 239, 244, .78);
+  font: 400 13px/1.7 var(--font-body), sans-serif;
+}
+
+.collage-gallery-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 10px 15px;
+  border: 1px solid rgba(255, 208, 145, .35);
+  border-radius: 999px;
+  color: #ffe2af;
+  background: linear-gradient(120deg, rgba(255, 67, 133, .2), rgba(214, 162, 77, .12));
+  font: 700 10px var(--font-jakarta), sans-serif;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.collage-gallery-link:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 208, 145, .7);
+  box-shadow: 0 10px 28px rgba(255, 67, 133, .2);
+}
+
+@media (max-width: 700px) {
+  .birthday-collage-stage {
+    height: 640px;
+  }
+
+  .birthday-collage-photo {
+    padding: 4px 4px 10px;
+    border-radius: 9px;
+  }
+
+  .birthday-collage-photo img {
+    border-radius: 6px;
+  }
+
+  .birthday-collage-photo:nth-child(odd) {
+    width: 27% !important;
+    height: 20% !important;
+  }
+
+  .birthday-collage-photo:nth-child(even) {
+    width: 27% !important;
+    height: 20% !important;
+  }
+
+  .birthday-collage-message {
+    width: 60%;
+    padding: 22px 15px;
+    border-radius: 22px;
+  }
+
+  .birthday-collage-message h2 {
+    margin: 10px 0 7px;
+    font-size: clamp(24px, 7vw, 34px);
+  }
+
+  .birthday-collage-message p {
+    font-size: 11px;
+  }
+
+  .collage-eyebrow {
+    gap: 5px;
+    font-size: 8px;
+    letter-spacing: .12em;
+  }
+
+  .collage-gallery-link {
+    margin-top: 13px;
+    padding: 8px 10px;
+    font-size: 8px;
+  }
 }
 
 .birthday-scene::before,

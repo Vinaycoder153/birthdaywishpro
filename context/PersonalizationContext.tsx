@@ -52,6 +52,14 @@ export interface PersonalizationData {
 }
 
 const STORAGE_KEY = "birthday-universe-data-v1";
+const LEGACY_STOCK_PHOTO_URLS = [
+  "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&q=80",
+  "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=800&q=80",
+  "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&q=80",
+  "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&q=80",
+  "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800&q=80",
+  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80",
+];
 
 export const DEFAULT_DATA: PersonalizationData = {
   partnerName: "Sinchana",
@@ -76,52 +84,64 @@ export const DEFAULT_DATA: PersonalizationData = {
   audioUrl: "/audio/voice-message.mp3",
   photos: [
     {
-      id: "p1",
-      url: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&q=80",
-      caption: "The smile I never get tired of looking at.",
-      date: "Dec 4",
-      location: "Where it all began",
-      category: "Favorites",
+      id: "sin-photo-01",
+      url: "https://res.cloudinary.com/dhce3g2sm/image/upload/v1795572959/1000110946_enhanced_qziza6.jpg",
+      caption: "A little moment with Sin ✨",
+      category: "Birthday Memories",
     },
     {
-      id: "p2",
-      url: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=800&q=80",
-      caption: "That golden evening we wished would last forever.",
-      date: "Jul 18",
-      location: "Sunset Harbor",
-      category: "Golden Hour",
+      id: "sin-photo-02",
+      url: "https://res.cloudinary.com/dhce3g2sm/image/upload/v1795572975/1000110945_enhanced_yk30sg.jpg",
+      caption: "One for the memory book 💖",
+      category: "Birthday Memories",
     },
     {
-      id: "p3",
-      url: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&q=80",
-      caption: "You + Me = my favorite place in the universe.",
-      date: "Oct 12",
-      location: "Starlight Ridge",
-      category: "Adventures",
+      id: "sin-photo-03",
+      url: "https://res.cloudinary.com/dhce3g2sm/image/upload/v1795572975/1000110944_enhanced_csjmo3.jpg",
+      caption: "Sin's birthday sparkle ✨",
+      category: "Birthday Memories",
     },
     {
-      id: "p4",
-      url: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&q=80",
-      caption: "I wish I could pause this exact moment forever.",
-      date: "Dec 25",
-      location: "Winter Hideaway",
-      category: "Cozy Days",
+      id: "sin-photo-04",
+      url: "https://res.cloudinary.com/dhce3g2sm/image/upload/v1795572976/1000110947_enhanced_j5zdzf.jpg",
+      caption: "A favorite frame with my favorite friend",
+      category: "Birthday Memories",
     },
     {
-      id: "p5",
-      url: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800&q=80",
-      caption: "Quiet mornings with you are my favorite kind of luxury.",
-      date: "Feb 14",
-      location: "Our Corner",
-      category: "Quiet Days",
+      id: "sin-photo-05",
+      url: "https://res.cloudinary.com/dhce3g2sm/image/upload/v1795572977/1000110942_enhanced_c7q2y2.jpg",
+      caption: "Here's to more moments like this 🥂",
+      category: "Birthday Memories",
     },
     {
-      id: "p6",
-      url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80",
-      caption: "In a room full of art, I'd still stare at you.",
-      date: "May 02",
-      location: "The Gallery",
-      category: "Favorites",
+      id: "sin-photo-06",
+      url: "https://res.cloudinary.com/dhce3g2sm/image/upload/v1795572977/1000110940_enhanced_sofakm.jpg",
+      caption: "Another little piece of our story",
+      category: "Birthday Memories",
+    },
+    {
+      id: "sin-photo-07",
+      url: "https://res.cloudinary.com/dhce3g2sm/image/upload/v1795572978/1000110938_enhanced_hphirk.jpg",
+      caption: "Sin, being wonderfully herself 🌟",
+      category: "Birthday Memories",
+    },
+    {
+      id: "sin-photo-08",
+      url: "https://res.cloudinary.com/dhce3g2sm/image/upload/v1795572979/1000110943_enhanced_nrpg5k.jpg",
+      caption: "A memory that deserves its own spotlight",
+      category: "Birthday Memories",
+    },
+    {
+      id: "sin-photo-09",
+      url: "https://res.cloudinary.com/dhce3g2sm/image/upload/v1795572982/1000110941_enhanced_rshj9u.jpg",
+      caption: "Best-friend memories, forever treasured 💫",
+      category: "Birthday Memories",
+    },
+    {
+      id: "sin-photo-10",
+      url: "https://res.cloudinary.com/dhce3g2sm/image/upload/v1795572983/1000110939_enhanced_nv6s82.jpg",
+      caption: "One more birthday memory to treasure ✨",
+      category: "Birthday Memories",
     },
   ],
   milestones: [
@@ -201,7 +221,29 @@ export function PersonalizationProvider({ children }: { children: ReactNode }) {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as PersonalizationData;
-        setData({ ...DEFAULT_DATA, ...parsed });
+        const hasOnlyLegacyStockPhotos =
+          Array.isArray(parsed.photos) &&
+          parsed.photos.length === LEGACY_STOCK_PHOTO_URLS.length &&
+          parsed.photos.every((photo) => LEGACY_STOCK_PHOTO_URLS.includes(photo.url));
+        const hasPreviousBirthdayPhotoSet =
+          Array.isArray(parsed.photos) &&
+          parsed.photos.length === DEFAULT_DATA.photos.length - 1 &&
+          parsed.photos.every(
+            (photo, index) =>
+              photo.id === DEFAULT_DATA.photos[index]?.id &&
+              photo.url === DEFAULT_DATA.photos[index]?.url
+          );
+        const photos = hasOnlyLegacyStockPhotos
+          ? DEFAULT_DATA.photos
+          : hasPreviousBirthdayPhotoSet
+            ? [...parsed.photos, DEFAULT_DATA.photos[DEFAULT_DATA.photos.length - 1]]
+            : parsed.photos ?? DEFAULT_DATA.photos;
+
+        setData({
+          ...DEFAULT_DATA,
+          ...parsed,
+          photos,
+        });
       }
     } catch {
       setData(DEFAULT_DATA);

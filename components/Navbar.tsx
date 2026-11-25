@@ -57,8 +57,8 @@ export default function Navbar() {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
           scrolled
-            ? "py-3 bg-[#060105]/85 backdrop-blur-2xl border-b border-rosegold/20 shadow-2xl"
-            : "py-6 bg-transparent"
+            ? "py-3 bg-[#080611]/90 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_10px_40px_rgba(0,0,0,0.28)]"
+            : "py-4 bg-[#080611]/35 backdrop-blur-xl border-b border-white/[0.04]"
         }`}
       >
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
@@ -79,7 +79,7 @@ export default function Navbar() {
           </a>
 
           {/* Desktop Nav Items */}
-          <nav className="hidden md:flex items-center gap-1 glass-panel px-3 py-1.5 rounded-full border border-rosegold/20 shadow-lg">
+          <nav className="hidden md:flex items-center gap-1 glass-panel px-2 py-1.5 rounded-full border border-white/[0.12] shadow-[0_10px_35px_rgba(0,0,0,0.24)]">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeSection === item.id;

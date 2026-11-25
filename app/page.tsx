@@ -6,6 +6,7 @@ import Starfield from "@/components/Starfield";
 import PasscodeGate from "@/components/PasscodeGate";
 import Navbar from "@/components/Navbar";
 import BirthdayHero from "@/components/Hero";
+import BirthdayCollage from "@/components/BirthdayCollage";
 import MemoryGallery from "@/components/MemoryGallery";
 import StoryTimeline from "@/components/Timeline";
 import VoiceMessage from "@/components/VoiceAudioPlayer";
@@ -25,7 +26,7 @@ export default function HomePage() {
   const showContent = isUnlocked || previewMode;
 
   return (
-    <main className="relative min-h-screen bg-[#060105] text-[#ffe9ef] selection:bg-magenta selection:text-white overflow-x-hidden">
+    <main className="premium-canvas relative min-h-screen bg-[#080611] text-[#fff1f4] selection:bg-magenta selection:text-white overflow-x-hidden">
       {/* Persistent Cosmic Starfield Background */}
       <Starfield />
 
@@ -45,6 +46,7 @@ export default function HomePage() {
         >
           <Navbar />
           <BirthdayHero />
+          <BirthdayCollage />
           <MemoryGallery />
           <StoryTimeline />
           <VoiceMessage />
